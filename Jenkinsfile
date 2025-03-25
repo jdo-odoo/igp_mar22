@@ -28,11 +28,11 @@ pipeline
             }
         }
 
-        stage('Code compile')
+        stage('Code packaging')
         {
             steps
             {
-               sh 'mvn compile'
+               sh 'mvn package'
             }
         }
         
