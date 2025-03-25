@@ -1,13 +1,14 @@
 pipeline
 {
     agent any
+
     stages
     {
         stage('Code Checkout')
         {
             steps
             {
-                git 'https://github.com/jdo-odoo/igp_mar22.git'
+                git branch:main, url:'https://github.com/jdo-odoo/igp_mar22.git'
             }   
         }
 
@@ -15,7 +16,7 @@ pipeline
         {
             steps
             {
-                mvn compile
+               sh 'mvn compile'
             }
         }
 
@@ -23,15 +24,15 @@ pipeline
         {
             steps
             {
-                mvn test
+               sh 'mvn test'
             }
         }
 
-        stage('Code packagin')
+        stage('Code compile')
         {
             steps
             {
-                mvn package
+               sh 'mvn compile'
             }
         }
         
