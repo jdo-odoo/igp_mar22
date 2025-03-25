@@ -7,7 +7,7 @@ pipeline
         {
             steps
             {
-                'git https://github.com/jdo-odoo/igp_mar22.git' 
+                git 'https://github.com/jdo-odoo/igp_mar22.git'
             }   
         }
 
@@ -15,7 +15,7 @@ pipeline
         {
             steps
             {
-                'mvn  compile'
+                mvn  compile
             }
         }
 
@@ -23,7 +23,7 @@ pipeline
         {
             steps
             {
-                'mvn  test'
+                mvn  test
             }
         }
 
@@ -31,7 +31,7 @@ pipeline
         {
             steps
             {
-                'mvn  package'
+                mvn  package
             }
         }
         
