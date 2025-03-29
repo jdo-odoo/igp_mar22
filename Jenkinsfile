@@ -8,7 +8,7 @@ pipeline
         {
             steps
             {
-                git url:'https://github.com/jdo-odoo/igp_mar22.git'
+                git PN-67613216url:'https://github.com/jdo-odoo/igp_mar22.git'
             }   
         }
 
