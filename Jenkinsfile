@@ -3,7 +3,7 @@ pipeline
     agent any
 
     environment {
-        DOCKER_IMAGE = 'jdossougoin/abc:$BUILD_NUMBER'
+        DOCKER_IMAGE = 'jdossougoin/abc:${BUILD_NUMBER}'
         DOCKER_REGISTRY = 'hub.docker.com'
     }
 
