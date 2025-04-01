@@ -45,9 +45,8 @@ pipeline
         {
             steps{
                 sh 'cp /var/lib/jenkins/workspace/$JOB_NAME/target/ABCtechnologies-1.0.war /var/lib/jenkins/workspace/$JOB_NAME/abc.war'
-                def tag = env.BUILD_NUMBER ?: "latest"
-                sh 'docker build -t $DOCKER_IMAGE .'
-                sh 'docker tag $DOCKER_IMAGE '
+                sh 'docker build -t jdossougoin/abc:${BUILD_NUMBER} .'
+                sh 'docker tag jdossougoin/abc:${BUILD_NUMBER} '
             }
         }
 
@@ -55,7 +54,7 @@ pipeline
         {
             steps{
                 withDockerRegistry([credentialsId: "DockerHub_Credentials", url:"https://${DOCKER_REGISTRY}"]){
-                    sh 'docker push $DOCKER_IMAGE'
+                    sh 'docker push jdossougoin/abc:${BUILD_NUMBER}'
                 }
             }
         }
@@ -63,7 +62,7 @@ pipeline
         stage('Deploy as container')
         {
             steps{
-                sh 'docker run -itd -P $DOCKER_IMAGE'
+                sh 'docker run -itd -P jdossougoin/abc:${BUILD_NUMBER}'
             }
         }
         
