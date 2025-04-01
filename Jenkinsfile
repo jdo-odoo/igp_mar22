@@ -45,6 +45,7 @@ pipeline
         {
             steps{
                 sh 'cp /var/lib/jenkins/workspace/$JOB_NAME/target/ABCtechnologies-1.0.war /var/lib/jenkins/workspace/$JOB_NAME/abc.war'
+                def tag = env.BUILD_NUMBER ?: "latest"
                 sh 'docker build -t $DOCKER_IMAGE .'
                 sh 'docker tag $DOCKER_IMAGE '
             }
