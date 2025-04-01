@@ -54,7 +54,8 @@ pipeline
         stage('Push Docker Image')
         {
             steps{
-                withCredentials(credentialsId: "docker_hub_token"){
+                withCredentials([string(credentialsId: 'docker_hub_token', variable: 'DOCKER_TOKEN')]) {
+                    sh 'echo $DOCKER_TOKEN | docker login -u jdossougoin --password-stdin'}
                     sh 'docker push ${DOCKER_REPO}:${BUILD_NUMBER}'
                 }
             }
