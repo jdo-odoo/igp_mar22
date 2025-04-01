@@ -54,7 +54,7 @@ pipeline
         stage('Push Docker Image')
         {
             steps{
-                withDockerRegistry([credentialsId: "docker_hub_token"]){
+                withCredentials([credentialsId: "docker_hub_token"]){
                     sh 'docker push ${DOCKER_REPO}:${BUILD_NUMBER}'
                 }
             }
