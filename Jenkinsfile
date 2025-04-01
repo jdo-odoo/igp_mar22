@@ -3,7 +3,8 @@ pipeline
     agent any
 
     environment {
-        DOCKER_IMAGE = 'jdossougoin/abc:${BUILD_NUMBER}'
+        DOCKER_REPO = 'jdossougoin/abc'
+        DOCKER_LOGIN_ENDPOINT = 'index.docker.io/v1/'
         DOCKER_REGISTRY = 'docker.io/jdossougoin/abc'
     }
 
@@ -46,15 +47,15 @@ pipeline
             steps{
                 sh 'cp /var/lib/jenkins/workspace/$JOB_NAME/target/ABCtechnologies-1.0.war /var/lib/jenkins/workspace/$JOB_NAME/abc.war'
                 sh 'docker build -t abc:${BUILD_NUMBER} .'
-                sh 'docker tag abc:${BUILD_NUMBER} jdossougoin/abc:${BUILD_NUMBER}'
+                sh 'docker tag abc:${BUILD_NUMBER} ${DOCKER_REPO}:${BUILD_NUMBER}'
             }
         }
 
         stage('Push Docker Image')
         {
             steps{
-                withDockerRegistry([credentialsId: "DockerHub_Credentials", url:"https://${DOCKER_REGISTRY}"]){
-                    sh 'docker push jdossougoin/abc:${BUILD_NUMBER}'
+                withDockerRegistry([credentialsId: "docker_hub_token", url:"https://index.docker.io/v1/"]){
+                    sh 'docker push ${DOCKER_REPO}:${BUILD_NUMBER}'
                 }
             }
         }
@@ -62,7 +63,7 @@ pipeline
         stage('Deploy as container')
         {
             steps{
-                sh 'docker run -itd -P jdossougoin/abc:${BUILD_NUMBER}'
+                sh 'docker run -itd -P ${DOCKER_REPO}:${BUILD_NUMBER}'
             }
         }
         
