@@ -4,7 +4,7 @@ pipeline
 
     environment {
         DOCKER_IMAGE = 'jdossougoin/abc:${BUILD_NUMBER}'
-        DOCKER_REGISTRY = 'hub.docker.com'
+        DOCKER_REGISTRY = 'docker.io/jdossougoin/abc'
     }
 
     stages
