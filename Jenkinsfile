@@ -73,7 +73,14 @@ pipeline
         stage('Deploy to kubernetes')
         {
             steps{
-                sh 'docker run -itd -P ${DOCKER_REPO}:${BUILD_NUMBER}'
+                 withCredentials([file(credentialsId: 'myClusterConfig', variable: 'KUBECONFIG')]) {
+                    sh '''
+                        kubectl config get-contexts
+                        kubectl get pods -n default
+                        kubectl apply -f abcdeploy.yaml
+                        kubectl apply -f abcservice.yaml
+                    '''
+                }
             }
         }
         
